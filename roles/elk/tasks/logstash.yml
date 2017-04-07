@@ -11,9 +11,15 @@
 - name: "install logstash service"
   copy: src=logstash.service dest=/etc/systemd/system/logstash.service
 
+#- name: start logstash service
+#  systemd:
+#    name: logstash
+#    daemon_reload: yes
+#    state: restarted
+#    enabled: yes
+
 - name: start logstash service
-  systemd:
-    name: logstash
-    daemon_reload: yes
-    state: restarted
-    enabled: yes
+  docker_service:
+    project_src: /opt/logstash
+    build: no
+    restarted: true

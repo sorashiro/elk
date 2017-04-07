@@ -28,9 +28,15 @@
 - name: "set max_map_count"
   shell: "sysctl -w vm.max_map_count=262144 && echo vm.max_map_count=262144 >> /etc/sysctl.conf && sysctl vm.max_map_count"
 
+#- name: start elasticsearch service
+#  systemd:
+#    name: elasticsearch
+#    daemon_reload: yes
+#    state: restarted
+#    enabled: yes
+
 - name: start elasticsearch service
-  systemd:
-    name: elasticsearch
-    daemon_reload: yes
-    state: restarted
-    enabled: yes
+  docker_service: 
+    project_src: /opt/elasticsearch
+    build: no
+    restarted: true

@@ -11,9 +11,15 @@
 - name: "install filebeat service"
   copy: src=filebeat.service dest=/etc/systemd/system/filebeat.service
 
+#- name: start filebeat service
+#  systemd:
+#    name: filebeat
+#    daemon_reload: yes
+#    state: restarted
+#    enabled: yes
+
 - name: start filebeat service
-  systemd:
-    name: filebeat
-    daemon_reload: yes
-    state: restarted
-    enabled: yes
+  docker_service:
+    project_src: /opt/filebeat
+    build: no
+    restarted: true

@@ -17,8 +17,15 @@
   copy: src=zookeeper.service dest=/etc/systemd/system/zookeeper.service
 
 - name: start zookeeper service
-  systemd:
-    name: zookeeper
-    daemon_reload: yes
-    state: restarted
-    enabled: yes
+  docker_service:
+    project_src: /opt/zookeeper
+    build: no
+    restarted: true
+
+#- name: start zookeeper service
+#  systemd:
+#    name: zookeeper
+#    daemon_reload: yes
+#    state: restarted
+#    enabled: yes
+
